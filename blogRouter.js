@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
 //if okay, add new blog post, and return it with a status of 201.
 router.post('/', jsonParser, (req, res) => {
     //ensure `title`, `content`, and `author` are in request body
-    const requiredFields = ['title', 'content', 'author'];
+    const requiredFields = ['title', 'content', 'author', 'publishDate'];
     for (let i=0; i<requiredFields.length; i++) {
         const field = requiredFields[i];
         if (!(field in req.body)) {
@@ -32,7 +32,7 @@ router.post('/', jsonParser, (req, res) => {
             return res.status(400).send(message);
         }
     }
-    const item = BlogPosts.create(req.body.title, req.body.content, req.body.author);
+    const item = BlogPosts.create(req.body.title, req.body.content, req.body.author, req.body.publishDate);
     res.status(201).json(item);
 });
 
@@ -73,7 +73,7 @@ router.put('/:id', jsonParser, (req, res) => {
         content: req.body.content,
         author: req.body.content
     });
-    res.status(204).end();
+    res.status(204).json(updatedPost);
 })
 
 

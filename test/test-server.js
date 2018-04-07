@@ -95,9 +95,10 @@ describe('Blog', function() {
         // request to the app, we update it with an `id` property so
         // we can make a second, PUT call to the app.
         const updateData = {
-            title: "DROMM BlogPost",
-            content: "Dave's first blog post",
-            author: "Dave Romm"
+            title: "Blog post EDIT",
+            content: "This is a revised blogpost",
+            author: "Steve Romm",
+            publishdate: "april 7, 2018"
         };
 
         return chai.request(app)
@@ -117,6 +118,7 @@ describe('Blog', function() {
             // prove that the PUT request has right status code
             // and returns updated item
             .then(function (res) {
+                console.log(res.headers);
                 expect(res).to.have.status(204);
                 expect(res).to.be.json;
                 expect(res.body).to.be.a('object');

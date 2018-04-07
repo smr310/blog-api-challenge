@@ -40,7 +40,7 @@ router.post('/', jsonParser, (req, res) => {
 // Delete blog post (by id)!
 router.delete('/:id', (req, res) => {
     BlogPosts.delete(req.params.id);
-    console.log(`Deleted blog post \`${req.params.ID}\``);
+    console.log(`Deleted blog post \`${req.params.id}\``);
     res.status(204).end();
 });
 
@@ -73,7 +73,9 @@ router.put('/:id', jsonParser, (req, res) => {
         content: req.body.content,
         author: req.body.content
     });
-    res.status(204).json(updatedPost);
+    res.set('Content-Type', 'application/json');
+    console.log(res.getHeaders());
+    res.status(204).send(updatedPost);
 })
 
 

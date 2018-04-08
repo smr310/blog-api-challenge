@@ -16,13 +16,13 @@ function StorageException(message) {
 }
 
 const BlogPosts = {
-    create: function (title, content, author, publishDate) {
+    create: function (title, content, author, publishdate) {
         const post = {
             id: uuid.v4(),
             title: title,
             content: content,
             author: author,
-            publishDate: publishDate || Date.now()
+            publishdate: publishdate || Date.now()
         };
         this.posts.push(post);
         return post;
@@ -36,7 +36,7 @@ const BlogPosts = {
         // return posts sorted (descending) by
         // publish date
         return this.posts.sort(function (a, b) {
-            return b.publishDate - a.publishDate
+            return b.publishdate - a.publishdate
         });
     },
     delete: function (id) {

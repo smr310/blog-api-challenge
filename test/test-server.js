@@ -66,7 +66,7 @@ describe('Blog', function() {
     //  2. inspect response object and prove it has right
     //  status code and that the returned object has an `id`
     it('should add an item on POST', function () {
-        const newPost = { title: 'blogpost 1', content: "my first blog post", author: "steve romm", publishDate: Date.now() };
+        const newPost = { title: 'blogpost 1', content: "my first blog post", author: "steve romm", publishdate: Date.now() };
         return chai.request(app)
             .post('/blog-posts')
             .send(newPost)
@@ -119,7 +119,7 @@ describe('Blog', function() {
             // and returns updated item
             .then(function (res) {
                 console.log(res.headers);
-                expect(res).to.have.status(204);
+                expect(res).to.have.status(200);
                 expect(res).to.be.json;
                 expect(res.body).to.be.a('object');
                 expect(res.body).to.deep.equal(updateData);
@@ -134,10 +134,11 @@ describe('Blog', function() {
         return chai.request(app)
             // first have to get so we have an `id` of item
             // to delete
-            .get('/blog-post')
+            .get('/blog-posts')
             .then(function (res) {
+                console.log('this should show res.body', res.body);
                 return chai.request(app)
-                    .delete(`/blog-post/${res.body[0].id}`);
+                    .delete(`/blog-posts/${res.body[0].id}`);
             })
             .then(function (res) {
                 expect(res).to.have.status(204);

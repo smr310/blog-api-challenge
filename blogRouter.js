@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
 //if okay, add new blog post, and return it with a status of 201.
 router.post('/', jsonParser, (req, res) => {
     //ensure `title`, `content`, and `author` are in request body
-    const requiredFields = ['title', 'content', 'author', 'publishDate'];
+    const requiredFields = ['title', 'content', 'author', 'publishdate'];
     for (let i=0; i<requiredFields.length; i++) {
         const field = requiredFields[i];
         if (!(field in req.body)) {
@@ -32,13 +32,14 @@ router.post('/', jsonParser, (req, res) => {
             return res.status(400).send(message);
         }
     }
-    const item = BlogPosts.create(req.body.title, req.body.content, req.body.author, req.body.publishDate);
+    const item = BlogPosts.create(req.body.title, req.body.content, req.body.author, req.body.publishdate);
     res.status(201).json(item);
 });
 
 
 // Delete blog post (by id)!
 router.delete('/:id', (req, res) => {
+    console.log('Random text that will hopefully appear');
     BlogPosts.delete(req.params.id);
     console.log(`Deleted blog post \`${req.params.id}\``);
     res.status(204).end();
@@ -71,11 +72,13 @@ router.put('/:id', jsonParser, (req, res) => {
         id: req.params.id,
         title: req.body.title,
         content: req.body.content,
-        author: req.body.content
+        author: req.body.author,
+        publishdate: req.body.publishdate 
     });
+    console.log(req.body, updatedPost);
     res.set('Content-Type', 'application/json');
     console.log(res.getHeaders());
-    res.status(204).send(updatedPost);
+    res.status(200).send(updatedPost);
 })
 
 
